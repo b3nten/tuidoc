@@ -35,17 +35,20 @@ createRoot(document.getElementById("root")!).render(
 					<ListItem>Baz</ListItem>
 				</UnorderedList>
 				<Text>This is cool!</Text>
+
 				<Dialog.Root>
 					<Dialog.Trigger asChild>
 						<Button>
 							Open Dialog
 						</Button>
 					</Dialog.Trigger>
-					<Dialog.Content title={"Dialog Title"}>
-						<Dialog.Description>Description</Dialog.Description>
-						<Dialog.Close asChild><Button size={"small"} border>close</Button></Dialog.Close>
+					<Dialog.Content title={"Dialog Title"} description={"Dialog Description"}>
+						<Dialog.Close asChild>
+							<Button className={"mt-4"} border>close</Button>
+						</Dialog.Close>
 					</Dialog.Content>
 				</Dialog.Root>
+
 			</Box>
 		</Styles>
 	</StrictMode>
