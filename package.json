@@ -1,0 +1,34 @@
+{
+	"name": "web",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build --app",
+		"lint": "biome check --fix"
+	},
+	"dependencies": {
+		"@css-hooks/react": "^3.0.4",
+		"@mdx-js/rollup": "^3.1.0",
+		"@tailwindcss/vite": "^4.0.17",
+		"@webtui/css": "^0.0.2",
+		"@webtui/theme-nord": "^0.0.2",
+		"hono": "^4.7.5",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"tailwindcss": "^4.0.17",
+		"wouter": "^3.6.0",
+		"zustand": "^5.0.3"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@types/react": "^19.0.10",
+		"@types/react-dom": "^19.0.4",
+		"@vitejs/plugin-react-swc": "^3.8.0",
+		"@vonojs/vite": "^1.1.3",
+		"typescript": "~5.7.2",
+		"vite": "^6.2.0"
+	},
+	"packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af"
+}
