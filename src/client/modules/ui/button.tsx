@@ -31,12 +31,12 @@ let Button = (props: ButtonProps) => {
 	)
 
 	if(asChild && isJSXElement(children)) {
-		let child = children as JSX.Element;
 		return (
 			<Box {...boxProps} asChild>
 				{cloneElement(
-					child,
+					children as JSX.Element,
 					{
+						...(children as JSX.Element).props,
 						...restElementProps,
 						style,
 						"is-": "button",
@@ -54,7 +54,9 @@ let Button = (props: ButtonProps) => {
 				is-="button"
 				variant-={variant}
 				size-={size}
-			>{children}</button>
+			>
+				{children}
+			</button>
 		</Box>
 	}
 }

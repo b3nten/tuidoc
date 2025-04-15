@@ -3,9 +3,9 @@ import {
 	JSX,
 } from "react";
 import { AsChild } from "./util.ts";
-import Box, { BoxStyleProps } from "./box.tsx";
+import Box, { CssProp } from "./box.tsx";
 
-type ListItemProps = AsChild<HTMLLIElement> & BoxStyleProps
+type ListItemProps = AsChild<HTMLLIElement> & CssProp
 
 let ListItem = (props: ListItemProps) => {
 	let {
@@ -20,13 +20,17 @@ let ListItem = (props: ListItemProps) => {
 		return <Box css={css} asChild>
 			{cloneElement(child, {
 				...child.props,
+				"is-": "typography-block",
 			})}
 		</Box>
 	} else {
 		return <Box css={css} asChild>
 			<li
 				{...restProps}
-			>{children}</li>
+				is-={"typography-block"}
+			>
+				{children}
+			</li>
 		</Box>
 	}
 }

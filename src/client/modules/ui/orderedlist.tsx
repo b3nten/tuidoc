@@ -3,9 +3,9 @@ import {
 	JSX,
 } from "react";
 import { AsChild, extractBoxProps } from "./util.ts";
-import Box, { BaseBoxProps, BoxStyleProps } from "./box.tsx";
+import Box, { BaseBoxProps, CssProp } from "./box.tsx";
 
-type OrderedListProps = AsChild<HTMLUListElement> & BaseBoxProps & BoxStyleProps
+type OrderedListProps = AsChild<HTMLUListElement> & BaseBoxProps & CssProp
 
 let OrderedList = (props: OrderedListProps) => {
 	let [boxProps, restProps] = extractBoxProps(props);

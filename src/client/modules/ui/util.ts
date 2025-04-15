@@ -1,17 +1,16 @@
 import { CSSProperties, HTMLAttributes, JSX, ReactElement, useMemo } from "react";
-import { BaseBoxProps, BoxStyleProps } from "./box.tsx";
+import { BaseBoxProps, CssProp } from "./box.tsx";
 
-export let useMergedStyles = (userStyles: Record<string, any>, rules: Record<string, any>): CSSProperties =>
-	useMemo(() => {
-		let newStyles = Object.assign(
-			{},
-			userStyles,
-			rules,
-		)
-		return Object.fromEntries(
-			Object.entries(newStyles).filter(([, v]) => v !== undefined),
-		)
-	}, [...Object.values(userStyles), ...Object.values(rules)])
+export const EMPTY_OBJECT = Object.freeze({})
+
+export let noop = () => void 0;
+
+export let useMergedStyles = (
+	userStyles: Record<string, any>,
+	rules: Record<string, any>,
+	hooks?: Record<string, any>
+): CSSProperties => useMemo(
+	() => Object.assign({}, userStyles, rules, hooks ?? {}), [userStyles, rules, hooks])
 
 export type AsChild<DefaultElementProps> =
 	({ asChild?: false } & HTMLAttributes<DefaultElementProps>)
@@ -23,7 +22,7 @@ export function isJSXElement(element: any): element is JSX.Element {
 	return typeof element === "object" && element !== null && "type" in element && "props" in element;
 }
 
-export let extractBoxProps = <T extends BaseBoxProps & BoxStyleProps>(props: T) => {
+export let extractBoxProps = <T extends BaseBoxProps & CssProp>(props: T) => {
 	let {
 		border,
 		contain,
@@ -43,7 +42,7 @@ export let extractBoxProps = <T extends BaseBoxProps & BoxStyleProps>(props: T) 
 		doubleBorderWidth,
 		css,
 	}, restProps] as [
-		BaseBoxProps & BoxStyleProps,
+		BaseBoxProps & CssProp,
 		Omit<T, keyof BaseBoxProps> & (T extends AsChild<infer U> ? Partial<HTMLAttributes<U>> : never)
 	]
 }

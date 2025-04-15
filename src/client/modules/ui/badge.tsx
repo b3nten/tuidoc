@@ -5,13 +5,13 @@ import {
 	JSX,
 } from "react";
 import { AsChild, useMergedStyles } from "./util.ts";
-import Box, { BoxStyleProps } from "./box.tsx";
+import Box, { CssProp } from "./box.tsx";
 
 type BadgeProps = AsChild<HTMLSpanElement> & {
 	variant?: string;
 	badgeColor?: string;
 	badgeTextColor?: string;
-} & BoxStyleProps
+} & CssProp
 
 let Badge = (props: BadgeProps) => {
 	let {
@@ -35,10 +35,9 @@ let Badge = (props: BadgeProps) => {
 	)
 
 	if(asChild) {
-		let child = children as JSX.Element;
 		return <Box css={css} asChild>
-			{cloneElement(child, {
-				...child.props,
+			{cloneElement(children as JSX.Element, {
+				...(children as JSX.Element).props,
 				style,
 				"is-": "badge",
 				"variant-": variant,
@@ -51,7 +50,9 @@ let Badge = (props: BadgeProps) => {
 				style={style}
 				is-="badge"
 				variant-={variant}
-			>{children}</span>
+			>
+				{children}
+			</span>
 		</Box>
 	}
 }

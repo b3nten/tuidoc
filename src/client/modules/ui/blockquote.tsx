@@ -3,9 +3,9 @@ import {
 	JSX,
 } from "react";
 import { AsChild } from "./util.ts";
-import Box, { BoxStyleProps } from "./box.tsx";
+import Box, { CssProp } from "./box.tsx";
 
-type BlockQuoteProps = AsChild<HTMLQuoteElement> & BoxStyleProps
+type BlockQuoteProps = AsChild<HTMLQuoteElement> & CssProp
 
 let Text = (props: BlockQuoteProps) => {
 	let {
@@ -16,10 +16,9 @@ let Text = (props: BlockQuoteProps) => {
 	} = props;
 
 	if(asChild) {
-		let child = children as JSX.Element;
 		return <Box css={css} asChild>
-			{cloneElement(child, {
-				...child.props,
+			{cloneElement(children as JSX.Element, {
+				...(children as JSX.Element).props,
 				"is-": "typography-block"
 			})}
 		</Box>
@@ -28,7 +27,9 @@ let Text = (props: BlockQuoteProps) => {
 			<blockquote
 				{...restProps}
 				is-="typography-block"
-			>{children}</blockquote>
+			>
+				{children}
+			</blockquote>
 		</Box>
 	}
 }

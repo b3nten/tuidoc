@@ -4,7 +4,12 @@ import {
 	cloneElement,
 	ReactElement, createElement,
 } from "react";
-import { AsChild, boxType, useMergedStyles } from "./util.ts";
+import {
+	AsChild,
+	boxType,
+	useMergedStyles
+} from "./util.ts";
+import { useCss } from "./style.tsx";
 
 export type BaseBoxProps = {
 	border?: boolean | "square" | "round" | "double"
@@ -15,11 +20,11 @@ export type BaseBoxProps = {
 	doubleBorderWidth?: string
 }
 
-export type BoxStyleProps = {
-	css?: any,
+export type CssProp = {
+	css?: Record<string, any>,
 }
 
-export type BoxProps = AsChild<HTMLDivElement> & BaseBoxProps & BoxStyleProps;
+export type BoxProps = AsChild<HTMLDivElement> & BaseBoxProps & CssProp;
 
 let Box = (props: BoxProps) => {
 	let {
@@ -31,8 +36,11 @@ let Box = (props: BoxProps) => {
 		borderWidth,
 		doubleBorderWidth,
 		children,
+		css,
 		...restProps
 	} = props;
+
+	let cssFn = useCss()
 
 	let box = useMemo(() => {
 		if(!border) return;
@@ -43,23 +51,23 @@ let Box = (props: BoxProps) => {
 		return result;
 	}, [border, contain])
 
-	let style = useMergedStyles(
+	let mergedStyles = useMergedStyles(
 		(asChild
-			? (children as ReactElement<any, any>).props.style
+			? (children as ReactElement<any, any>).props?.style ?? {}
 			: (restProps as HTMLAttributes<HTMLDivElement>).style) ?? {},
 		{
 			"--box-border-color": borderColor,
 			"--box-border-radius": borderRadius,
 			"--box-border-width": borderWidth,
 			"--box-double-border-width": doubleBorderWidth,
-		}
+		},
+		cssFn(css ?? {})
 	)
 
 	if(asChild) {
-		let child = children as ReactElement<any, any>
-		return cloneElement(child, {
-			...child.props,
-			style,
+		return cloneElement(children as ReactElement<any, any>, {
+			...(children as ReactElement<any, any>).props,
+			style: mergedStyles,
 			"box-": box,
 		})
 	} else {
@@ -67,7 +75,7 @@ let Box = (props: BoxProps) => {
 			...restProps,
 			"box-": box,
 			children,
-			style,
+			style: mergedStyles,
 		})
 	}
 }

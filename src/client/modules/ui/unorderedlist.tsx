@@ -3,11 +3,11 @@ import {
 	JSX,
 } from "react";
 import { AsChild, extractBoxProps } from "./util.ts";
-import Box, { BaseBoxProps, BoxStyleProps } from "./box.tsx";
+import Box, { BaseBoxProps, CssProp } from "./box.tsx";
 
 type UnorderedListProps = AsChild<HTMLUListElement> & {
 	marker?: "bullet" | "tree" | "open tree" | "open tree open" | "tree open"
-} & BaseBoxProps & BoxStyleProps
+} & BaseBoxProps & CssProp
 
 let UnorderedList = (props: UnorderedListProps) => {
 	let [boxProps, restProps] = extractBoxProps(props);

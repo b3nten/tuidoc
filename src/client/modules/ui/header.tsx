@@ -3,9 +3,9 @@ import {
 	JSX,
 } from "react";
 import { AsChild } from "./util.ts";
-import Box, { BoxStyleProps } from "./box.tsx";
+import Box, { CssProp } from "./box.tsx";
 
-type HeadingProps = AsChild<HTMLHeadingElement> & BoxStyleProps
+type HeadingProps = AsChild<HTMLHeadingElement> & CssProp
 
 let makeHeading = (Component: any) => (props: HeadingProps) => {
 	let {

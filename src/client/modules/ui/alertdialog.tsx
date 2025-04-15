@@ -1,15 +1,25 @@
-import { Dialog as DialogImpl, VisuallyHidden } from "radix-ui";
+import { AlertDialog as DialogImpl, VisuallyHidden } from "radix-ui";
 import Box from "./box.tsx";
 import { PropsWithChildren } from "react";
 import Text from "./Text.tsx";
 
-interface DialogContentProps {
+interface AlertDialog {
 	title?: string;
 	description?: string;
 	overlay?: boolean | React.ReactElement;
 }
 
-export let DialogContent = (props: PropsWithChildren<DialogContentProps>) => {
+const DialogContentBoxStyle = {
+	position: "fixed",
+	left: "50%",
+	transform: "translateX(-50%)",
+	top: "50%",
+	zIndex: 10,
+	minWidth: "50vw",
+	backgroundColor: "var(--background0)",
+}
+
+let AlertDialog = (props: PropsWithChildren<AlertDialog>) => {
 	return <DialogImpl.Portal>
 		<Box className="fixed inset-0">
 			<div className="fixed -z-10 inset-0 pointer-events-none bg-[var(--background0)]/80"></div>
@@ -20,12 +30,12 @@ export let DialogContent = (props: PropsWithChildren<DialogContentProps>) => {
 					</VisuallyHidden.Root>
 				)}
 				<Box
-					className={"fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10 bg-[var(--background0)] min-w-[50vw]"}
+					className={"fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10 bg-[var(--background1)] min-w-[50vw]"}
 				>
 					<Box border contain={"!top"}>
 						{props.title && (
 							<DialogImpl.Title asChild>
-								<Text className={"inline-block !bg-[var(--background0)] px-1 translate-x-1"}>
+								<Text className={"inline-block !bg-[var(--background1)] px-1 translate-x-1 text-red-300"}>
 									{props.title}
 								</Text>
 							</DialogImpl.Title>
@@ -40,15 +50,18 @@ export let DialogContent = (props: PropsWithChildren<DialogContentProps>) => {
 	</DialogImpl.Portal>
 }
 
-export let DialogRoot = DialogImpl.Root;
+let DialogRoot = DialogImpl.Root;
 
-export let DialogTrigger = DialogImpl.Trigger;
+let DialogTrigger = DialogImpl.Trigger;
 
-export let DialogClose = DialogImpl.Close;
+let DialogCancel = DialogImpl.Cancel;
+
+let DialogAction = DialogImpl.Action;
 
 export default {
 	Root: DialogRoot,
 	Trigger: DialogTrigger,
-	Content: DialogContent,
-	Close: DialogClose,
+	Content: AlertDialog,
+	Cancel: DialogCancel,
+	Action: DialogAction,
 }

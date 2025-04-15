@@ -3,9 +3,9 @@ import {
 	JSX,
 } from "react";
 import { AsChild } from "./util.ts";
-import Box, { BoxStyleProps } from "./box.tsx";
+import Box, { CssProp } from "./box.tsx";
 
-type TextProps = AsChild<HTMLParagraphElement> & BoxStyleProps
+type TextProps = AsChild<HTMLParagraphElement> & CssProp
 
 let Text = (props: TextProps) => {
 	let {
