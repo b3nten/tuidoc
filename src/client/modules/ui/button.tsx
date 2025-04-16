@@ -1,64 +1,30 @@
-import { cloneElement, JSX } from "react";
-import { extractBoxProps, useMergedStyles, AsChild, isJSXElement } from "./util.ts";
-import Box, { BaseBoxProps } from "./box.tsx";
+import Box, { BoxProps } from "./box.tsx";
+import {  useMergedStyles } from "./util.ts";
+import { ElementType } from "react";
 
-type ButtonProps = AsChild<HTMLButtonElement> & {
+type BaseButtonProps = {
 	primary?: string
 	secondary?: string
 	variant?: string
 	size?: string
-} & BaseBoxProps
+	small?: boolean
+	large?: boolean
+}
 
-let Button = (props: ButtonProps) => {
-	let [boxProps, restProps] = extractBoxProps(props);
+export type ButtonProps<T extends ElementType> = BoxProps<T> & BaseButtonProps
 
-	let {
-		children,
-		asChild,
-		variant,
-		size,
-		secondary,
-		primary,
-		...restElementProps
-	} = restProps;
-
-	let style = useMergedStyles(
-		restElementProps.style ?? {},
-		{
+let Button = <T extends ElementType = "button">(props: ButtonProps<T>) => {
+	let { primary, secondary, variant, size, small, large, as, style, ...restProps } = props;
+	return <Box
+		{...restProps as any}
+		as={props.as ?? "button"}
+		is-={"button"}
+		size-={large ? "large" : small ? "small" : size}
+		style={useMergedStyles(style, {
 			"--button-primary": primary,
 			"--button-secondary": secondary,
-		}
-	)
-
-	if(asChild && isJSXElement(children)) {
-		return (
-			<Box {...boxProps} asChild>
-				{cloneElement(
-					children as JSX.Element,
-					{
-						...(children as JSX.Element).props,
-						...restElementProps,
-						style,
-						"is-": "button",
-						"variant-": variant,
-						"size-": size,
-					}
-				)}
-			</Box>
-		)
-	} else {
-		return <Box {...boxProps} asChild>
-			<button
-				{...restElementProps}
-				style={style}
-				is-="button"
-				variant-={variant}
-				size-={size}
-			>
-				{children}
-			</button>
-		</Box>
-	}
+		})}
+	/>
 }
 
 export default Button;

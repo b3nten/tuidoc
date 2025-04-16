@@ -9,20 +9,20 @@ interface AlertDialog {
 	overlay?: boolean | React.ReactElement;
 }
 
-const DialogContentBoxStyle = {
-	position: "fixed",
-	left: "50%",
-	transform: "translateX(-50%)",
-	top: "50%",
-	zIndex: 10,
-	minWidth: "50vw",
-	backgroundColor: "var(--background0)",
-}
-
 let AlertDialog = (props: PropsWithChildren<AlertDialog>) => {
 	return <DialogImpl.Portal>
-		<Box className="fixed inset-0">
-			<div className="fixed -z-10 inset-0 pointer-events-none bg-[var(--background0)]/80"></div>
+		<Box css={{ position: "fixed", inset: 0 }}>
+			<Box
+				css={{
+					position: "fixed",
+					inset: 0,
+					zIndex: -10,
+					backgroundColor: "var(--background0)",
+					opacity: 0.8,
+					pointerEvents: "none",
+					transition: "opacity 0.2s ease-in-out",
+				}}
+			/>
 			<DialogImpl.Content>
 				{props.description && (
 					<VisuallyHidden.Root asChild>
@@ -30,12 +30,28 @@ let AlertDialog = (props: PropsWithChildren<AlertDialog>) => {
 					</VisuallyHidden.Root>
 				)}
 				<Box
-					className={"fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10 bg-[var(--background1)] min-w-[50vw]"}
+					css={{
+						position: "fixed",
+						top: "50%",
+						left: "50%",
+						transform: "translate(-50%, -50%)",
+						zIndex: 10,
+						backgroundColor: "var(--background1)",
+						minWidth: "50vw",
+					}}
 				>
 					<Box border contain={"!top"}>
 						{props.title && (
 							<DialogImpl.Title asChild>
-								<Text className={"inline-block !bg-[var(--background1)] px-1 translate-x-1 text-red-300"}>
+								<Text
+									css={{
+										display: "inline-block",
+										backgroundColor: "var(--background1)",
+										padding: "0.5rem 1rem",
+										transform: "translateX(0.5rem)",
+										transition: "transform 0.2s ease-in-out",
+									}}
+								>
 									{props.title}
 								</Text>
 							</DialogImpl.Title>

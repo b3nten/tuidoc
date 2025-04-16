@@ -1,36 +1,14 @@
-import {
-	cloneElement,
-	JSX,
-} from "react";
-import { AsChild } from "./util.ts";
-import Box, { CssProp } from "./box.tsx";
+import { PolymorphicBase, PolymorphicBaseProps } from "./base.tsx";
+import { ElementType } from "react";
 
-type TextProps = AsChild<HTMLParagraphElement> & CssProp
+type TextProps<T extends ElementType> = PolymorphicBaseProps<T>
 
-let Text = (props: TextProps) => {
-	let {
-		asChild,
-		children,
-		css,
-		...restProps
-	} = props;
-
-	if(asChild) {
-		let child = children as JSX.Element;
-		return <Box css={css} asChild>
-			{cloneElement(child, {
-				...child.props,
-				"is-": "typography-block"
-			})}
-		</Box>
-	} else {
-		return <Box css={css} asChild>
-			<p
-				{...restProps}
-				is-="typography-block"
-			>{children}</p>
-		</Box>
-	}
+let Text = <T extends ElementType = "p">(props: TextProps<T>) => {
+	return <PolymorphicBase
+		{...props}
+		as={props.as ?? "p"}
+		is-="typography-block"
+	/>
 }
 
 export default Text;

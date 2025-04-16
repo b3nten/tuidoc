@@ -1,38 +1,14 @@
-import {
-	cloneElement,
-	JSX,
-} from "react";
-import { AsChild } from "./util.ts";
-import Box, { CssProp } from "./box.tsx";
+import { PolymorphicBase, PolymorphicBaseProps } from "./base.tsx";
+import { ElementType } from "react";
 
-type ListItemProps = AsChild<HTMLLIElement> & CssProp
+type ListItemProps<T extends ElementType> = PolymorphicBaseProps<T>
 
-let ListItem = (props: ListItemProps) => {
-	let {
-		asChild,
-		children,
-		css,
-		...restProps
-	} = props;
-
-	if(asChild) {
-		let child = children as JSX.Element;
-		return <Box css={css} asChild>
-			{cloneElement(child, {
-				...child.props,
-				"is-": "typography-block",
-			})}
-		</Box>
-	} else {
-		return <Box css={css} asChild>
-			<li
-				{...restProps}
-				is-={"typography-block"}
-			>
-				{children}
-			</li>
-		</Box>
-	}
+let Text = <T extends ElementType = "li">(props: ListItemProps<T>) => {
+	return <PolymorphicBase
+		{...props}
+		as={props.as ?? "li"}
+		is-="typography-block"
+	/>
 }
 
-export default ListItem;
+export default Text;

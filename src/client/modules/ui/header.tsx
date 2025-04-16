@@ -1,36 +1,14 @@
-import {
-	cloneElement,
-	JSX,
-} from "react";
-import { AsChild } from "./util.ts";
-import Box, { CssProp } from "./box.tsx";
+import { ElementType } from "react";
+import { PolymorphicBase, PolymorphicBaseProps } from "./base.tsx";
 
-type HeadingProps = AsChild<HTMLHeadingElement> & CssProp
+type HeadingProps<T extends ElementType> = PolymorphicBaseProps<T, {}>
 
-let makeHeading = (Component: any) => (props: HeadingProps) => {
-	let {
-		asChild,
-		children,
-		css,
-		...restProps
-	} = props;
-
-	if(asChild) {
-		let child = children as JSX.Element;
-		return <Box css={css} asChild>
-			{cloneElement(child, {
-				...child.props,
-				"is-": "typography-block"
-			})}
-		</Box>
-	} else {
-		return <Box css={css} asChild>
-			<Component
-				{...restProps}
-				is-="typography-block"
-			>{children}</Component>
-		</Box>
-	}
+let makeHeading = (as: any) => <T extends ElementType = "h1">(props: HeadingProps<T>) => {
+	return <PolymorphicBase
+		{...props}
+		as={props.as ?? as}
+		is-={"typography-block"}
+	/>
 }
 
 let Heading = {

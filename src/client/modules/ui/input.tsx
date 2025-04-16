@@ -1,51 +1,48 @@
-import { cloneElement, JSX } from "react";
-import { AsChild, extractBoxProps, isJSXElement } from "./util.ts";
-import Box, { BaseBoxProps } from "./box.tsx";
+import { ElementType } from "react";
+import { Box, BoxProps } from "./box.tsx";
+import { PolymorphicBase } from "./base.tsx";
 
-type InputProps = AsChild<HTMLInputElement> & {
+type InputProps<T extends ElementType> = BoxProps<T> & {
 	size?: "small" | "large";
-} & BaseBoxProps
+}
 
-let Input = (props: InputProps) => {
+let borderStyle = {
+	"display": "inline-block",
+	"padding": ".7lh .9ch",
+}
 
-	let [boxProps, restProps] = extractBoxProps(props);
+let Input = <T extends ElementType>(props: InputProps<T>) => {
 
 	let {
-		asChild,
-		children,
-		style,
+		as,
+		border,
+		borderColor,
+		borderWidth,
+		borderRadius,
 		size,
-		...restElementProps
-	} = restProps
+		...restProps
+	} = props;
 
-	let borderStyle = {
-		"display": "inline-block",
-		"padding": ".7lh .9ch",
-	}
+	let input = <PolymorphicBase
+		as={as ?? "input"}
+		size-={size}
+		is-="input"
+		{...restProps}
+	/>
 
-	if(asChild && isJSXElement(children)) {
-		let child = children as JSX.Element;
-		return (
-			<Box {...boxProps} style={borderStyle}>
-				{cloneElement(
-					child,
-					{
-						...restElementProps,
-						"is-": "input",
-						"size-": size,
-					}
-				)}
-			</Box>
-		)
-	} else {
-		return <Box {...boxProps} style={borderStyle}>
-			<input
-				{...restElementProps}
-				style={style}
-				is-="input"
-				size-={size}
-			/>
+	if(props.border) {
+		return <Box
+			as={"div"}
+			border={border}
+			borderColor={borderColor}
+			borderWidth={borderWidth}
+			borderRadius={borderRadius}
+			style={borderStyle}
+		>
+			{input}
 		</Box>
+	} else {
+		return input;
 	}
 }
 

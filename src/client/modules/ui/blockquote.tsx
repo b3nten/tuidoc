@@ -1,37 +1,14 @@
-import {
-	cloneElement,
-	JSX,
-} from "react";
-import { AsChild } from "./util.ts";
-import Box, { CssProp } from "./box.tsx";
+import { PolymorphicBase, PolymorphicBaseProps } from "./base.tsx";
+import { ElementType } from "react";
 
-type BlockQuoteProps = AsChild<HTMLQuoteElement> & CssProp
+type BlockQuoteProps<T extends ElementType> = PolymorphicBaseProps<T, {}>
 
-let Text = (props: BlockQuoteProps) => {
-	let {
-		asChild,
-		children,
-		css,
-		...restProps
-	} = props;
-
-	if(asChild) {
-		return <Box css={css} asChild>
-			{cloneElement(children as JSX.Element, {
-				...(children as JSX.Element).props,
-				"is-": "typography-block"
-			})}
-		</Box>
-	} else {
-		return <Box css={css} asChild>
-			<blockquote
-				{...restProps}
-				is-="typography-block"
-			>
-				{children}
-			</blockquote>
-		</Box>
-	}
+let Text = <T extends ElementType>(props: BlockQuoteProps<T>) => {
+	return <PolymorphicBase
+		{...props}
+		as={props.as ?? "blockquote"}
+		is-={"typography-block"}
+	/>
 }
 
 export default Text;

@@ -1,15 +1,6 @@
-import {
-	type HTMLAttributes,
-	useMemo,
-	cloneElement,
-	ReactElement, createElement,
-} from "react";
-import {
-	AsChild,
-	boxType,
-	useMergedStyles
-} from "./util.ts";
-import { useCss } from "./style.tsx";
+import { ElementType, useMemo } from "react";
+import { boxType, useMergedStyles } from "./util.ts";
+import { PolymorphicBase, PolymorphicBaseProps } from "./base.tsx";
 
 export type BaseBoxProps = {
 	border?: boolean | "square" | "round" | "double"
@@ -20,64 +11,48 @@ export type BaseBoxProps = {
 	doubleBorderWidth?: string
 }
 
-export type CssProp = {
-	css?: Record<string, any>,
-}
+export type BoxProps<T extends ElementType> = PolymorphicBaseProps<T, BaseBoxProps>
 
-export type BoxProps = AsChild<HTMLDivElement> & BaseBoxProps & CssProp;
-
-let Box = (props: BoxProps) => {
+export let Box = <T extends ElementType = "div">(props: BoxProps<T>) => {
 	let {
-		asChild,
+		as,
+		css,
+		style,
 		border,
 		contain,
 		borderColor,
 		borderRadius,
 		borderWidth,
 		doubleBorderWidth,
-		children,
-		css,
 		...restProps
 	} = props;
 
-	let cssFn = useCss()
-
 	let box = useMemo(() => {
-		if(!border) return;
-		let result = boxType(border)
-		if(contain) {
-			result += ` contain:${contain}`
+		if(!props.border) return;
+		let result = boxType(props.border)
+		if(props.contain) {
+			result += ` contain:${props.contain}`
 		}
 		return result;
-	}, [border, contain])
+	}, [props.border, props.contain])
 
-	let mergedStyles = useMergedStyles(
-		(asChild
-			? (children as ReactElement<any, any>).props?.style ?? {}
-			: (restProps as HTMLAttributes<HTMLDivElement>).style) ?? {},
+	let mergedStyle = useMergedStyles(
 		{
 			"--box-border-color": borderColor,
 			"--box-border-radius": borderRadius,
 			"--box-border-width": borderWidth,
 			"--box-double-border-width": doubleBorderWidth,
 		},
-		cssFn(css ?? {})
-	)
+		style,
+	);
 
-	if(asChild) {
-		return cloneElement(children as ReactElement<any, any>, {
-			...(children as ReactElement<any, any>).props,
-			style: mergedStyles,
-			"box-": box,
-		})
-	} else {
-		return createElement("div", {
-			...restProps,
-			"box-": box,
-			children,
-			style: mergedStyles,
-		})
-	}
+	return <PolymorphicBase
+		{...restProps}
+		as={as ?? "div"}
+		css={css}
+		box-={box}
+		style={mergedStyle}
+	/>
 }
 
 export default Box;

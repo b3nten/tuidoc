@@ -1,60 +1,37 @@
-import {
-	type HTMLAttributes,
-	cloneElement,
-	ReactElement,
-	JSX,
-} from "react";
-import { AsChild, useMergedStyles } from "./util.ts";
-import Box, { CssProp } from "./box.tsx";
+import { ElementType, } from "react";
+import { useMergedStyles } from "./util.ts";
+import { PolymorphicBase, PolymorphicBaseProps } from "./base.tsx";
 
-type BadgeProps = AsChild<HTMLSpanElement> & {
-	variant?: string;
-	badgeColor?: string;
-	badgeTextColor?: string;
-} & CssProp
+export type BadgeProps<T extends ElementType> = PolymorphicBaseProps<T, {
+	variant?: string,
+	badgeColor?: string,
+	badgeTextColor?: string,
+}>
 
-let Badge = (props: BadgeProps) => {
+let Badge = <T extends ElementType = "span">(props: BadgeProps<T>) => {
 	let {
-		asChild,
-		children,
+		as,
 		variant,
 		badgeColor,
 		badgeTextColor,
-		css,
+		style,
 		...restProps
 	} = props;
 
-	let style = useMergedStyles(
-		(asChild
-			? (children as ReactElement<any, any>).props.style
-			: (restProps as HTMLAttributes<HTMLDivElement>).style) ?? {},
+	let mergedStyles = useMergedStyles(
+		style,
 		{
 			"--badge-color": badgeColor,
 			"--badge-text-color": badgeTextColor,
 		}
 	)
 
-	if(asChild) {
-		return <Box css={css} asChild>
-			{cloneElement(children as JSX.Element, {
-				...(children as JSX.Element).props,
-				style,
-				"is-": "badge",
-				"variant-": variant,
-			})}
-		</Box>
-	} else {
-		return <Box css={css} asChild>
-			<span
-				{...restProps}
-				style={style}
-				is-="badge"
-				variant-={variant}
-			>
-				{children}
-			</span>
-		</Box>
-	}
+	return <PolymorphicBase
+		{...restProps}
+		as={as ?? "span"}
+		is-={"badge"}
+		style={mergedStyles}
+	/>
 }
 
 export default Badge;
