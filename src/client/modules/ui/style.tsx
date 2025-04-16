@@ -22,10 +22,22 @@ let isAnd = (str: string) => str.startsWith("&:")
 let parseNot = (str: string) => str.replace("&:!", "&:") as Selector;
 
 export let defaultHooks = [
+	"&:hover",
+	"&:active",
+	"&:focus",
+	"&:focus-visible",
+	"&:focus-within",
+	"&:disabled",
+	"&:checked",
+	"&:valid",
+	"&:invalid",
+	"&:required",
+	"&:optional",
+	"&:first-child",
+	"&:last-child",
+] satisfies Selector[]
 
-]
-
-export let Styles = (props: PropsWithChildren<{
+export let ThemeProvider = (props: PropsWithChildren<{
 	hooks?: Selector[],
 }>) => {
 	let { not, and, on, or, styleSheet } =
