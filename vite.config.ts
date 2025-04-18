@@ -8,7 +8,7 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		vono({
-			server: "src/server/index.ts",
+			server: "site/server/index.ts",
 			adaptor: CloudflareAdaptor,
 			preserveHtml: false,
 		}),
@@ -17,7 +17,7 @@ export default defineConfig({
 	],
 	build: {
 		rollupOptions: {
-			input: "src/client/main.html",
+			input: "site/client/main.html",
 		},
 	},
 });

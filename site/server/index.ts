@@ -6,8 +6,9 @@ import shell from "#vono/html";
 let app = new Hono;
 
 app.get("*", async (c) => {
+	console.log(shell)
 	return c.html(
-		shell.replace("%head%", `<title>Hello!</title>`)
+		shell
 	)
 })
 

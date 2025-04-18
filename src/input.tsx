@@ -1,14 +1,14 @@
 import { ElementType } from "react";
 import { Box, BoxProps } from "./box.tsx";
-import { PolymorphicBase } from "./base.tsx";
-
-type InputProps<T extends ElementType> = BoxProps<T> & {
-	size?: "small" | "large";
-}
+import { PolymorphicBase } from "./base.ts";
 
 let borderStyle = {
 	"display": "inline-block",
 	"padding": ".7lh .9ch",
+}
+
+export type InputProps<T extends ElementType> = BoxProps<T> & {
+	size?: "small" | "large";
 }
 
 let Input = <T extends ElementType>(props: InputProps<T>) => {

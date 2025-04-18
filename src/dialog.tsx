@@ -1,32 +1,36 @@
 import { Dialog as DialogImpl, VisuallyHidden } from "radix-ui";
 import Box from "./box.tsx";
 import { PropsWithChildren } from "react";
-import Text from "./Text.tsx";
+import Text from "./text.tsx";
 
-interface DialogContentProps {
+export type DialogContentProps = {
 	title?: string;
 	description?: string;
 	overlay?: boolean | React.ReactElement;
 }
 
-export let DialogContent = (props: PropsWithChildren<DialogContentProps>) => {
+let DialogContent = (props: PropsWithChildren<DialogContentProps>) => {
 	return <DialogImpl.Portal>
 		<Box css={{ position: "fixed", inset: 0 }}>
-			<Box
-				css={{
-					position: "fixed",
-					inset: 0,
-					zIndex: -10,
-					backgroundColor: "var(--background0)",
-					opacity: 0.8,
-					pointerEvents: "none",
-					transition: "opacity 0.2s ease-in-out",
-				}}
-			/>
+			{props.overlay && (
+				<Box
+					css={{
+						position: "fixed",
+						inset: 0,
+						zIndex: -10,
+						backgroundColor: "var(--background0)",
+						opacity: 0.8,
+						pointerEvents: "none",
+						transition: "opacity 0.2s ease-in-out",
+					}}
+				/>
+			)}
 			<DialogImpl.Content>
 				{props.description && (
 					<VisuallyHidden.Root asChild>
-						<DialogImpl.Description>{props.description}</DialogImpl.Description>
+						<DialogImpl.Description>
+							{props.description}
+						</DialogImpl.Description>
 					</VisuallyHidden.Root>
 				)}
 				<Box
@@ -47,7 +51,7 @@ export let DialogContent = (props: PropsWithChildren<DialogContentProps>) => {
 									css={{
 										display: "inline-block",
 										backgroundColor: "var(--background1)",
-										padding: "0.5rem 1rem",
+										padding: ".25lh 1rem",
 										transform: "translateX(0.5rem)",
 										transition: "transform 0.2s ease-in-out",
 									}}
@@ -66,15 +70,9 @@ export let DialogContent = (props: PropsWithChildren<DialogContentProps>) => {
 	</DialogImpl.Portal>
 }
 
-export let DialogRoot = DialogImpl.Root;
-
-export let DialogTrigger = DialogImpl.Trigger;
-
-export let DialogClose = DialogImpl.Close;
-
 export default {
-	Root: DialogRoot,
-	Trigger: DialogTrigger,
+	Root: DialogImpl.Root,
+	Trigger: DialogImpl.Trigger,
 	Content: DialogContent,
-	Close: DialogClose,
+	Close: DialogImpl.Close,
 }

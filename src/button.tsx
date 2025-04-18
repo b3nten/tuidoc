@@ -2,7 +2,7 @@ import Box, { BoxProps } from "./box.tsx";
 import {  useMergedStyles } from "./util.ts";
 import { ElementType } from "react";
 
-type BaseButtonProps = {
+export type ButtonProps<T extends ElementType> = BoxProps<T> & {
 	primary?: string
 	secondary?: string
 	variant?: string
@@ -10,8 +10,6 @@ type BaseButtonProps = {
 	small?: boolean
 	large?: boolean
 }
-
-export type ButtonProps<T extends ElementType> = BoxProps<T> & BaseButtonProps
 
 let Button = <T extends ElementType = "button">(props: ButtonProps<T>) => {
 	let { primary, secondary, variant, size, small, large, as, style, ...restProps } = props;

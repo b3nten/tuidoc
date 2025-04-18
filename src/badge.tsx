@@ -1,6 +1,6 @@
 import { ElementType, } from "react";
 import { useMergedStyles } from "./util.ts";
-import { PolymorphicBase, PolymorphicBaseProps } from "./base.tsx";
+import { PolymorphicBase, PolymorphicBaseProps } from "./base.ts";
 
 export type BadgeProps<T extends ElementType> = PolymorphicBaseProps<T, {
 	variant?: string,
@@ -17,20 +17,17 @@ let Badge = <T extends ElementType = "span">(props: BadgeProps<T>) => {
 		style,
 		...restProps
 	} = props;
-
-	let mergedStyles = useMergedStyles(
-		style,
-		{
-			"--badge-color": badgeColor,
-			"--badge-text-color": badgeTextColor,
-		}
-	)
-
 	return <PolymorphicBase
 		{...restProps}
 		as={as ?? "span"}
 		is-={"badge"}
-		style={mergedStyles}
+		style={useMergedStyles(
+			style,
+			{
+				"--badge-color": badgeColor,
+				"--badge-text-color": badgeTextColor,
+			}
+		)}
 	/>
 }
 

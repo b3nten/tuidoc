@@ -1,4 +1,4 @@
 name = "bentoncodes"
 compatibility_date = "2025-03-28"
-main = "./src/server/index.ts"
+main = "./site/server/index.ts"
 assets = { html_handling = "none" }

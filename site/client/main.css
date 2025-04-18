@@ -1,0 +1,26 @@
+@layer base, utils, components;
+
+@import "@webtui/css";
+
+@layer components {
+    button:not([is-~="button"]),
+    input:not([is-~="input"]),
+    h1:not([is-~="typography-block"]),
+    h2:not([is-~="typography-block"]),
+    h3:not([is-~="typography-block"]),
+    h4:not([is-~="typography-block"]),
+    h5:not([is-~="typography-block"]),
+    h6:not([is-~="typography-block"]),
+    ul:not([is-~="typography-block"]),
+    ol:not([is-~="typography-block"]),
+    p:not([is-~="typography-block"]),
+    blockquote:not([is-~="typography-block"]),
+    li:not([is-~="typography-block"]) {
+        all: unset;
+    }
+}
+
+@import '@webtui/theme-nord';
+@import '@webtui/theme-catppuccin';
+@import '@webtui/theme-gruvbox';
+@import "tailwindcss";
