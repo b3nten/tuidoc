@@ -8,6 +8,7 @@ import { Route, Switch } from "wouter";
 import Home from "./views/home";
 import { Nav } from "./components/nav";
 import Box from "../../src/box";
+import Footer from "./components/footer";
 
 declare module "../../src/style" {
 	export interface ExtendedCssProperties {
@@ -36,19 +37,16 @@ let App = () => {
 			<Switch>
 				<Box
 					css={{
-						"fontSize": "1rem",
 						tiny: {
 							padding: "1rem",
 						},
-						small: {
-							"fontSize": "1.25rem",
-						}
 					}}
 				>
 					<Nav />
 					<Route path={"/"}>
 						<Home />
 					</Route>
+					<Footer />
 				</Box>
 			</Switch>
 		</ThemeProvider>

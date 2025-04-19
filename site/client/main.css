@@ -27,6 +27,11 @@ a {
     text-decoration: unset;
 }
 
+:root {
+    @media (width >= 40rem) {
+        --font-size: 1.1rem;
+    }
+}
 
 @layer base {
     [data-webtui-theme="nord-light"] {

@@ -1,6 +1,7 @@
 import { Book, GithubIcon, Lightbulb, MenuSquare, Search, SunMoon } from "lucide-react";
 import { Box, Button, Text, Popover, ToggleGroup, Select, Dialog } from "../../../src/mod"
 import { State } from "../lib/state";
+import Link from "./link";
 
 export let Nav = () => {
 	return (
@@ -25,11 +26,7 @@ export let Nav = () => {
 					as={"a"}
 					href="/"
 				>
-					&lt;/
-					<span style={{ color: "var(--teal)" }}>
-					#&gt;
-				</span>
-					<span>WebTUI::React</span>
+					<span>WebTUI React</span>
 				</Box>
 				<Theme />
 			</Box>
@@ -37,7 +34,7 @@ export let Nav = () => {
 				as={"ul"}
 				css={{
 					display: "none",
-					tiny: {
+					medium: {
 						alignItems: "center",
 						display: "flex",
 						gap: "2ch",
@@ -46,18 +43,30 @@ export let Nav = () => {
 			>
 				<Box
 					as={"li"}
-					className="flex items-center space-x-1">
-					<Book size={"16px"} className="opacity-50" /><span>Docs</span>
+					className="flex items-center space-x-1"
+				>
+					<Link href={"/docs"}>
+						<Book size={"16px"} className="opacity-50" />
+						<span>Docs</span>
+					</Link>
 				</Box>
 				<Box
 					as={"li"}
-					className="flex items-center space-x-1">
-					<Lightbulb size={"16px"} className="opacity-50" /><span>Examples</span>
+					className="flex items-center space-x-1"
+				>
+					<Link href={"/examples"}>
+						<Lightbulb size={"16px"} className="opacity-50" />
+						<span>Examples</span>
+					</Link>
 				</Box>
 				<Box
 					as={"li"}
-					className="flex items-center space-x-1">
-					<GithubIcon size={"16px"} className="opacity-50" /><span>Github</span>
+					className="flex items-center space-x-1"
+				>
+					<Box as={"a"} href={"https://github.com"} target={"_blank"}>
+						<GithubIcon size={"16px"} className="opacity-50" />
+						<span>Github</span>
+					</Box>
 				</Box>
 				<Box as={"li"}>
 					<SearchButton text/>
@@ -68,7 +77,7 @@ export let Nav = () => {
 					display: "flex",
 					alignItems: "center",
 					gap: ".5ch",
-					tiny: { display: "none" }
+					medium: { display: "none" }
 				}}
 			>
 				<SearchButton />
@@ -100,23 +109,40 @@ export let Nav = () => {
 						>
 							<Box
 								as={"li"}
-								className="flex items-center space-x-1">
-								<Book size={"16px"} className="opacity-50" /><span>Docs</span>
+								className="flex items-center space-x-1"
+							>
+								<Dialog.Close asChild>
+									<Link href={"/docs"}>
+										<Book size={"16px"} className="opacity-50" />
+										<span>Docs</span>
+									</Link>
+								</Dialog.Close>
 							</Box>
 							<Box
 								as={"li"}
-								className="flex items-center space-x-1">
-								<Lightbulb size={"16px"} className="opacity-50" /><span>Examples</span>
+								className="flex items-center space-x-1"
+							>
+								<Dialog.Close asChild>
+									<Link href={"/examples"}>
+										<Lightbulb size={"16px"} className="opacity-50" />
+										<span>Examples</span>
+									</Link>
+								</Dialog.Close>
 							</Box>
 							<Box
 								as={"li"}
-								className="flex items-center space-x-1">
-								<GithubIcon size={"16px"} className="opacity-50" /><span>Github</span>
+								className="flex items-center space-x-1"
+							>
+								<Dialog.Close asChild>
+									<Box as={"a"} href={"https://github.com"} target={"_blank"}>
+										<GithubIcon size={"16px"} className="opacity-50" />
+										<span>Github</span>
+									</Box>
+								</Dialog.Close>
 							</Box>
 						</Box>
 					</Dialog.Content>
 				</Dialog.Root>
-
 			</Box>
 		</Box>
 	)
