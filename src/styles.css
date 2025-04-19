@@ -11,7 +11,19 @@
     ol:not([is-~="typography-block"]),
     p:not([is-~="typography-block"]),
     blockquote:not([is-~="typography-block"]),
+    ul li::before,
+    ol li::before,
     li:not([is-~="typography-block"]) {
         all: unset;
+    }
+}
+
+@layer utils {
+    [box-~="square"],
+    [box-~="round"],
+    [box-~="double"] {
+        &::before {
+            height: max(calc(100% - 1lh - 2px), 1lh)
+        }
     }
 }

@@ -20,7 +20,11 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "paths": {
+      "webtui-react": ["./src/mod.ts"],
+      "webtui-react/*": ["./src/*"]
+    }
   },
   "include": [
     "src/client",

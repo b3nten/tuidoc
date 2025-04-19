@@ -8,7 +8,9 @@
 		"build:lib": "node build",
 		"lint": "biome check --fix"
 	},
-	"files": [".build"],
+	"files": [
+		".build"
+	],
 	"exports": {
 		".": {
 			"import": "./build/mod.js",
@@ -17,15 +19,15 @@
 		"./styles.css": "./dist/styles.css"
 	},
 	"dependencies": {
-		"@webtui/css": "^0.0.2",
+		"@webtui/css": "^0.0.3",
 		"@webtui/theme-catppuccin": "^0.0.2",
 		"@webtui/theme-gruvbox": "^0.0.1",
 		"@webtui/theme-nord": "^0.0.2",
 		"radix-ui": "^1.2.0"
 	},
 	"devDependencies": {
-		"@css-hooks/react": "^3.0.4",
 		"@biomejs/biome": "1.9.4",
+		"@css-hooks/react": "^3.0.4",
 		"@mdx-js/rollup": "^3.1.0",
 		"@reduxjs/toolkit": "^2.7.0",
 		"@tailwindcss/vite": "^4.0.17",
@@ -35,8 +37,10 @@
 		"@vonojs/vite": "^1.1.3",
 		"esbuild": "^0.25.2",
 		"hono": "^4.7.5",
+		"lucide-react": "^0.488.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
+		"react-on-lambda": "^0.6.4",
 		"react-redux": "^9.2.0",
 		"tailwindcss": "^4.0.17",
 		"typescript": "~5.7.2",

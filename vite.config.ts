@@ -20,4 +20,9 @@ export default defineConfig({
 			input: "site/client/main.html",
 		},
 	},
+	resolve: {
+		alias: {
+			"webtui-react": "src/mod.ts"
+		}
+	}
 });

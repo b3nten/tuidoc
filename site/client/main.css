@@ -2,25 +2,82 @@
 
 @import "@webtui/css";
 
-@layer components {
-    button:not([is-~="button"]),
-    input:not([is-~="input"]),
-    h1:not([is-~="typography-block"]),
-    h2:not([is-~="typography-block"]),
-    h3:not([is-~="typography-block"]),
-    h4:not([is-~="typography-block"]),
-    h5:not([is-~="typography-block"]),
-    h6:not([is-~="typography-block"]),
-    ul:not([is-~="typography-block"]),
-    ol:not([is-~="typography-block"]),
-    p:not([is-~="typography-block"]),
-    blockquote:not([is-~="typography-block"]),
-    li:not([is-~="typography-block"]) {
-        all: unset;
-    }
-}
+@import "../../src/styles.css";
 
 @import '@webtui/theme-nord';
 @import '@webtui/theme-catppuccin';
 @import '@webtui/theme-gruvbox';
-@import "tailwindcss";
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@layer utils {
+    :root {
+        --box-border-color: color-mix(in srgb, var(--foreground0), transparent 60%);
+    }
+    [box-~="square"]::before,
+    [box-~="round"]::before,
+    [box-~="double"]::before {
+        --box-border-color: color-mix(in srgb, var(--foreground0), transparent 60%);
+    }
+}
+
+a {
+    color: unset;
+    text-decoration: unset;
+}
+
+
+@layer base {
+    [data-webtui-theme="nord-light"] {
+        /* Polar Night */
+        --nord0: #2e3440;
+        --nord1: #3b4252;
+        --nord2: #434c5e;
+        --nord3: #4c566a;
+
+        /* Snow Storm */
+        --nord4: #d8dee9;
+        --nord5: #e5e9f0;
+        --nord6: #eceff4;
+
+        /* Frost */
+        --nord7: #8fbcbb;
+        --nord8: #88c0d0;
+        --nord9: #81a1c1;
+        --nord10: #5e81ac;
+
+        /* Aurora */
+        --nord11: #bf616a;
+        --nord12: #d08770;
+        --nord13: #ebcb8b;
+        --nord14: #a3be8c;
+        --nord15: #b48ead;
+
+        --background0: var(--nord6);
+        --background1: var(--nord5);
+        --background2: var(--nord4);
+        --background3: #c8cdd9;
+
+        --foreground0: var(--nord1);
+        --foreground1: var(--nord2);
+        --foreground2: var(--nord3);
+    }
+}
+
+[data-webtui-theme="catppuccin"] {
+
+}
+
+[data-webtui-theme="catppuccin-latte"] {
+
+}
+
+[data-webtui-theme="nord"] {
+
+}
+
+[data-webtui-theme="gruvbox"] {
+
+}
+

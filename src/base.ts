@@ -4,14 +4,14 @@ import {
 	createElement,
 	use,
 } from "react";
-import { StyleContext } from "./style.tsx";
+import { ExtendedCssProperties, StyleContext } from "./style.tsx";
 import {
 	type DistributiveOmit,
 	useMergedStyles
 } from "./util.ts";
 
 type PolymorphicCommon<T extends ElementType = ElementType> =
-	{ as?: T, css?: Record<string, any> }
+	{ as?: T, css?: ExtendedCssProperties }
 
 export type PolymorphicBaseProps<
 	C extends ElementType,
