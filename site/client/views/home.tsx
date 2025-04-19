@@ -3,7 +3,7 @@ import { Book, GithubIcon, Lightbulb } from "lucide-react";
 
 export default () => {
 	return (
-		<Box className={ "mx-auto mt-12 sm:mt-24 max-w-2xl space-y-4 p-4 text-center sm:text-left" }>
+		<Box className={ "flex flex-col justify-center mx-auto max-w-2xl space-y-4 p-4 text-center sm:text-left" }>
 			<Heading.H1>
 				UI Design that goes hard in React
 			</Heading.H1>

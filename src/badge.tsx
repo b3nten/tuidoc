@@ -21,6 +21,7 @@ let Badge = <T extends ElementType = "span">(props: BadgeProps<T>) => {
 		{...restProps}
 		as={as ?? "span"}
 		is-={"badge"}
+		variant-={variant}
 		style={useMergedStyles(
 			style,
 			{

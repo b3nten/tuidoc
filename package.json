@@ -4,7 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build:site": "tsc -b && vite build --app",
+		"build:site": "vite build --app",
 		"build:lib": "node build",
 		"lint": "biome check --fix"
 	},

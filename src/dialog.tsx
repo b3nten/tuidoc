@@ -51,7 +51,7 @@ let DialogContent = (props: PropsWithChildren<DialogContentProps>) => {
 									css={{
 										display: "inline-block",
 										backgroundColor: "var(--background1)",
-										padding: ".25lh 1rem",
+										padding: "0 1ch",
 										transform: "translateX(0.5rem)",
 										transition: "transform 0.2s ease-in-out",
 									}}
@@ -60,7 +60,7 @@ let DialogContent = (props: PropsWithChildren<DialogContentProps>) => {
 								</Text>
 							</DialogImpl.Title>
 						)}
-						<Box>
+						<Box css={{ padding: ".5lh 1ch" }}>
 							{props.children}
 						</Box>
 					</Box>

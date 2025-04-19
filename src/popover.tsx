@@ -7,9 +7,11 @@ let Content = (props: PropsWithChildren<PopoverImpl.PopoverContentProps>) => {
 		<PopoverImpl.Portal>
 			<PopoverImpl.Content sideOffset={5} {...props}>
 				<Box
+					border
+					pad={"none"}
 					css={{
 						backgroundColor: "var(--background2)",
-						padding: ".5lh .5ch"
+						padding: "1lh 1ch",
 					}}
 				>
 					{props.children}

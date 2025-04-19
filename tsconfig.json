@@ -25,9 +25,5 @@
       "webtui-react": ["./src/mod.ts"],
       "webtui-react/*": ["./src/*"]
     }
-  },
-  "include": [
-    "src/client",
-    "src/server"
-  ]
+  }
 }

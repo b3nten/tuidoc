@@ -12,9 +12,11 @@ export let Content = (props: PropsWithChildren<TooltipImpl.TooltipContentProps>)
 		<TooltipImpl.Portal>
 			<TooltipImpl.Content sideOffset={5} {...rest}>
 				<Box
+					border
+					pad={"none"}
 					css={{
 						backgroundColor: "var(--background2)",
-						padding: "0.5lh 0.5ch",
+						// padding: "0.5lh 0.5ch",
 					}}
 				>
 					{children}
@@ -31,21 +33,26 @@ export let Tooltip = (props: PropsWithChildren<{ content: ReactNode }>) => {
 	let { content, ...rest } = props;
 	return (
 		<TooltipImpl.Root>
-			<TooltipImpl.Trigger asChild>
-				{props.children}
-			</TooltipImpl.Trigger>
+			{typeof props.children === "string" ? (
+				<TooltipImpl.Trigger>
+					{props.children}
+				</TooltipImpl.Trigger>
+			) : (
+				<TooltipImpl.Trigger asChild>
+					{props.children}
+				</TooltipImpl.Trigger>
+			)}
 			<TooltipImpl.Portal>
 				<TooltipImpl.Content sideOffset={5} {...rest}>
 					<Box
+						border
+						pad={"none"}
 						css={{
 							backgroundColor: "var(--background2)",
 							padding: "0.5lh 0.5ch",
 						}}
 					>
 						{content}
-						<TooltipImpl.Arrow
-							fill={"var(--background2)"}
-						/>
 					</Box>
 				</TooltipImpl.Content>
 			</TooltipImpl.Portal>

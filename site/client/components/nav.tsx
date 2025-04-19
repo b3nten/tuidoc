@@ -23,7 +23,7 @@ export let Nav = () => {
 				}}
 			>
 				<Box
-					as={"a"}
+					as={Link}
 					href="/"
 				>
 					<span>WebTUI React</span>
@@ -41,29 +41,44 @@ export let Nav = () => {
 					}
 				}}
 			>
-				<Box
-					as={"li"}
-					className="flex items-center space-x-1"
-				>
-					<Link href={"/docs"}>
+				<Box as={"li"}>
+					<Box
+						as={Link}
+						href={"/docs"}
+						css={{
+							display: "flex",
+							alignItems: "center",
+							gap: "0.5ch",
+						}}
+					>
 						<Book size={"16px"} className="opacity-50" />
 						<span>Docs</span>
-					</Link>
+					</Box>
 				</Box>
-				<Box
-					as={"li"}
-					className="flex items-center space-x-1"
-				>
-					<Link href={"/examples"}>
+				<Box as={"li"}>
+					<Box as={Link}
+						href={"/examples"}
+						css={{
+							display: "flex",
+							alignItems: "center",
+							gap: "0.5ch",
+						}}
+					>
 						<Lightbulb size={"16px"} className="opacity-50" />
 						<span>Examples</span>
-					</Link>
+					</Box>
 				</Box>
-				<Box
-					as={"li"}
-					className="flex items-center space-x-1"
-				>
-					<Box as={"a"} href={"https://github.com"} target={"_blank"}>
+				<Box as={"li"}>
+					<Box
+						as={"a"}
+						href={"https://github.com"}
+						target={"_blank"}
+						css={{
+							display: "flex",
+							alignItems: "center",
+							gap: "0.5ch",
+						}}
+					>
 						<GithubIcon size={"16px"} className="opacity-50" />
 						<span>Github</span>
 					</Box>
@@ -101,40 +116,56 @@ export let Nav = () => {
 						description={"Navigation"}
 					>
 						<Box
+							as={"ul"}
 							css={{
 								display: "flex",
 								flexDirection: "column",
 								gap: "1ch",
 							}}
 						>
-							<Box
-								as={"li"}
-								className="flex items-center space-x-1"
-							>
+							<Box as={"li"}>
 								<Dialog.Close asChild>
-									<Link href={"/docs"}>
+									<Box
+										as={Link}
+										href={"/docs"}
+										css={{
+											display: "flex",
+											alignItems: "center",
+											gap: "0.5ch",
+										}}
+									>
 										<Book size={"16px"} className="opacity-50" />
 										<span>Docs</span>
-									</Link>
+									</Box>
 								</Dialog.Close>
 							</Box>
-							<Box
-								as={"li"}
-								className="flex items-center space-x-1"
-							>
+							<Box as={"li"}>
 								<Dialog.Close asChild>
-									<Link href={"/examples"}>
+									<Box as={Link}
+										 href={"/examples"}
+										 css={{
+											 display: "flex",
+											 alignItems: "center",
+											 gap: "0.5ch",
+										 }}
+									>
 										<Lightbulb size={"16px"} className="opacity-50" />
 										<span>Examples</span>
-									</Link>
+									</Box>
 								</Dialog.Close>
 							</Box>
-							<Box
-								as={"li"}
-								className="flex items-center space-x-1"
-							>
+							<Box as={"li"}>
 								<Dialog.Close asChild>
-									<Box as={"a"} href={"https://github.com"} target={"_blank"}>
+									<Box
+										as={"a"}
+										href={"https://github.com"}
+										target={"_blank"}
+										css={{
+											display: "flex",
+											alignItems: "center",
+											gap: "0.5ch",
+										}}
+									>
 										<GithubIcon size={"16px"} className="opacity-50" />
 										<span>Github</span>
 									</Box>
@@ -156,9 +187,9 @@ let Theme = () => {
 	return (
 		<Popover.Root>
 			<Popover.Trigger asChild>
-				<Box as="button" className={"flex items-center justify-center"}>
-					<SunMoon size={"24px"} />
-				</Box>
+				<Button border small className={"flex items-center justify-center"}>
+					<SunMoon size={"20px"} />
+				</Button>
 			</Popover.Trigger>
 			<Popover.Content>
 				<Box className={"flex flex-col space-y-2"}>

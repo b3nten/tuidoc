@@ -7,11 +7,16 @@ let Root = (props: PropsWithChildren<{ placeholder?: string, value?: string, onV
 	return (
 		<SelectImpl.Root value={value} onValueChange={onValueChange} >
 			<SelectImpl.Trigger asChild>
-				<Box border css={{
-					display: "flex",
-					justifyContent: "space-between",
-					alignItems: "center",
-				}}>
+				<Box
+					border
+					pad={"none"}
+					css={{
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+						padding: "0.5lh 0.5ch",
+					}}
+				>
 					<SelectImpl.Value placeholder={placeholder} />
 					<SelectImpl.Icon />
 				</Box>
@@ -22,9 +27,12 @@ let Root = (props: PropsWithChildren<{ placeholder?: string, value?: string, onV
 					asChild
 				>
 					<Box
+						pad={"none"}
 						css={{
 							backgroundColor: "var(--background2)",
 							width: "var(--radix-select-trigger-width)",
+							border: "var(--box-border-width) solid var(--box-border-color)",
+							borderTop: "none",
 						}}
 					>
 						<SelectImpl.Viewport asChild>

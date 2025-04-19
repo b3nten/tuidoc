@@ -1,7 +1,7 @@
 import "./main.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { ThemeProvider } from "../../src/mod";
+import { Main, ThemeProvider } from "../../src/mod";
 import { Provider } from 'react-redux'
 import { State, store } from "./lib/state";
 import { Route, Switch } from "wouter";
@@ -9,6 +9,8 @@ import Home from "./views/home";
 import { Nav } from "./components/nav";
 import Box from "../../src/box";
 import Footer from "./components/footer";
+import Docs from "./views/docs";
+import Examples from "./views/examples";
 
 declare module "../../src/style" {
 	export interface ExtendedCssProperties {
@@ -34,27 +36,46 @@ let App = () => {
 				wide: "@media (width >= 96rem)",
 			}}
 		>
-			<Switch>
-				<Box
+			<Box
+				css={{
+					height: "100vh",
+					display: "flex",
+					flexDirection: "column",
+				}}
+			>
+				<Nav />
+				<Main
 					css={{
-						tiny: {
-							padding: "1rem",
-						},
+						flexGrow: 1,
+						width: "100%",
+						height: "100%",
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						overflowX: "hidden",
+						overflowY: "scroll",
 					}}
 				>
-					<Nav />
-					<Route path={"/"}>
-						<Home />
-					</Route>
-					<Footer />
-				</Box>
-			</Switch>
+					<Switch>
+						<Route path={"/"}>
+							<Home />
+						</Route>
+						<Route path={"/docs*"} nest>
+							<Docs />
+						</Route>
+						<Route path={"/examples*"} nest>
+							<Examples />
+						</Route>
+					</Switch>
+				</Main>
+				<Footer />
+			</Box>
 		</ThemeProvider>
 	)
 }
 
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.querySelector("app-root")!).render(
 	<StrictMode>
 		<Provider store={store}>
 			<App />
