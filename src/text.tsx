@@ -8,7 +8,7 @@ let Text = <T extends ElementType = "p">(
 ) => <PolymorphicBase
 	{...props}
 	as={props.as ?? "p"}
-	is-="typography-block"
+	is-={!props.as && "typography-block"}
 />
 
 export default Text;

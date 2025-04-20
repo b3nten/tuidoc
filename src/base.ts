@@ -23,7 +23,7 @@ export type PolymorphicBaseProps<
 		keyof Props | keyof PolymorphicCommon<C>
 	>
 
-export let PolymorphicBase = <T extends ElementType>(
+export let PolymorphicBase = <T extends ElementType = "div">(
 	props: PolymorphicBaseProps<T>
 ) => {
 	let {

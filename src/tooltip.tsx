@@ -34,8 +34,8 @@ export let Tooltip = (props: PropsWithChildren<{ content: ReactNode }>) => {
 	return (
 		<TooltipImpl.Root>
 			{typeof props.children === "string" ? (
-				<TooltipImpl.Trigger>
-					{props.children}
+				<TooltipImpl.Trigger asChild>
+					<span>{props.children}</span>
 				</TooltipImpl.Trigger>
 			) : (
 				<TooltipImpl.Trigger asChild>

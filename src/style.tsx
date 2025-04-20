@@ -9,6 +9,7 @@ import {
 	useLayoutEffect, CSSProperties
 } from "react";
 import { Tooltip } from "radix-ui";
+import { ToastProvider } from "./toast.tsx";
 
 interface IStyleContext {
 	styleSheet: () => string
@@ -137,6 +138,8 @@ export let ThemeProvider = (props: PropsWithChildren<{
 		let set = (s: string) =>
 			document.documentElement.setAttribute("data-webtui-theme", s)
 
+		console.log("set", props.colorTheme)
+
 		switch(typeof props.colorTheme) {
 			case "undefined":
 				document.documentElement.removeAttribute("data-webtui-theme");
@@ -147,7 +150,7 @@ export let ThemeProvider = (props: PropsWithChildren<{
 			case "object":
 				colorModeQuery?.matches
 					? set(props.colorTheme.dark ?? "dark")
-					: set("light");
+					: set(props.colorTheme.light ?? "light")
 		}
 
 		let onChange = (e: MediaQueryListEvent) => {
@@ -170,9 +173,11 @@ export let ThemeProvider = (props: PropsWithChildren<{
 	return <>
 		<style data-webtui-react-hooks dangerouslySetInnerHTML={{__html: styleSheet() }} />
 		<Tooltip.Provider>
+			<ToastProvider>
 			<StyleContext.Provider value={ctx}>
 				{props.children}
 			</StyleContext.Provider>
+			</ToastProvider>
 		</Tooltip.Provider>
 	</>
 }

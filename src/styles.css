@@ -511,33 +511,33 @@
         }
     }
 
-   ul[is-~="typography-block"] {
+    ul[is-~="typography-block"] {
         list-style-type: none;
 
-        [is-~="typography-block"]li::before {
+        li[is-~="typography-block"]::before {
             color: inherit;
             content: "- ";
         }
 
-        &[marker-="bullet"] [is-~="typography-block"]li::before {
+        &[marker-="bullet"] li[is-~="typography-block"]::before {
             content: "• ";
         }
 
         &[marker-~="tree"] {
-            [is-~="typography-block"]li::before {
+            li[is-~="typography-block"]::before {
                 content: "├ ";
             }
 
-            &:not([marker-^="open"]) [is-~="typography-block"]li:first-of-type::before {
+            &:not([marker-^="open"]) li[is-~="typography-block"]:first-of-type::before {
                 content: "┌ ";
             }
 
-            &:not([marker-$="open"]) [is-~="typography-block"]li:last-of-type::before {
+            &:not([marker-$="open"]) li[is-~="typography-block"]:last-of-type::before {
                 content: "└ ";
             }
         }
 
-        [is-~="typography-block"]li > [is-~="typography-block"]ul {
+        li[is-~="typography-block"] > ul[is-~="typography-block"] {
             margin-left: 2ch;
         }
     }
@@ -665,6 +665,22 @@
                 height: calc(100% - 1lh + 2px);
                 border: solid var(--box-double-border-width) var(--box-border-color);
                 z-index: -1;
+            }
+
+            &[pad-~="x"] {
+                padding-left: 1ch;
+                padding-right: 1ch;
+                & > .box {
+                    width: calc(100% - 1ch - 2px);
+                }
+            }
+
+            &[pad-~="y"] {
+                padding-top: 1lh;
+                padding-bottom: 1lh;
+                & > .box {
+                    height: max(calc(100% - 1lh - 2px), 1lh);
+                }
             }
         }
 

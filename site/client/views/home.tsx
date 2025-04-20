@@ -1,5 +1,6 @@
-import { Heading, Box, Text } from "../../../src/mod";
+import { Heading, Box, Text, Tooltip } from "../../../src/mod";
 import { Book, GithubIcon, Lightbulb } from "lucide-react";
+import Link from "../components/link.tsx";
 
 export default () => {
 	return (
@@ -26,32 +27,61 @@ export default () => {
 					Contents
 				</Text>
 				<Box
-					as={ "ul" }
-					className={ "space-y-1 pl-6" }
-					css={ {
-						flexDirection: "column",
-						alignItems: "start",
+					as={"ul"}
+					css={{
 						display: "flex",
-					} }
+						flexDirection: "column",
+						gap: ".15lh",
+						paddingLeft: "1ch",
+					}}
 				>
-					<Box
-						as={ "li" }
-						className="flex items-center space-x-1"
-					>
-						<Book size={ "16px" } className="opacity-50"/>
-						<span>Docs</span>
+					<Box as={"li"}>
+						<Tooltip content={"go to documentation"}>
+							<Box
+								as={Link}
+								href={"/docs"}
+								css={{
+									display: "flex",
+									alignItems: "center",
+									gap: "0.5ch",
+								}}
+							>
+								<Book size={"16px"} className="opacity-50" />
+								<span>Docs</span>
+							</Box>
+						</Tooltip>
 					</Box>
-					<Box
-						as={ "li" }
-						className="flex items-center space-x-1"
-					>
-						<Lightbulb size={ "16px" } className="opacity-50"/><span>Examples</span>
+					<Box as={"li"}>
+						<Tooltip content={"link to examples"}>
+							<Box as={Link}
+								 href={"/examples"}
+								 css={{
+									 display: "flex",
+									 alignItems: "center",
+									 gap: "0.5ch",
+								 }}
+							>
+								<Lightbulb size={"16px"} className="opacity-50" />
+								<span>Examples</span>
+							</Box>
+						</Tooltip>
 					</Box>
-					<Box
-						as={ "li" }
-						className="flex items-center space-x-1"
-					>
-						<GithubIcon size={ "16px" } className="opacity-50"/><span>Github</span>
+					<Box as={"li"}>
+						<Tooltip content={"link to github repo"}>
+							<Box
+								as={"a"}
+								href={"https://github.com"}
+								target={"_blank"}
+								css={{
+									display: "flex",
+									alignItems: "center",
+									gap: "0.5ch",
+								}}
+							>
+								<GithubIcon size={"16px"} className="opacity-50" />
+								<span>Github</span>
+							</Box>
+						</Tooltip>
 					</Box>
 				</Box>
 			</Box>

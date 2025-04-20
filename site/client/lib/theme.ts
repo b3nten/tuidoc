@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import Cookies from 'js-cookie'
 
 let themeValues = {
 	catppuccin: {
@@ -11,7 +12,7 @@ let themeValues = {
 	},
 }
 
-let mapTheme = (theme: string, mode: string) => {
+export let mapTheme = (theme: string, mode: string) => {
 	if(mode === "auto") {
 		return themeValues[theme as keyof typeof themeValues]
 	}
@@ -24,8 +25,8 @@ let mapTheme = (theme: string, mode: string) => {
 }
 
 let initialState = () => {
-	let mode = localStorage.getItem("tui:mode") ?? "auto";
-	let theme = localStorage.getItem("tui:theme") ?? "catppuccin";
+	let mode = Cookies.get("tui:mode") ?? "auto";
+	let theme = Cookies.get("tui:theme") ?? "catppuccin";
 	return {
 		mode,
 		theme,
@@ -41,13 +42,14 @@ export let themeSlice = createSlice({
 			if(themeValues[action.payload as keyof typeof themeValues]) {
 				state.theme = action.payload;
 				state.themeValues = mapTheme(action.payload, state.mode)
-				localStorage.setItem("tui:theme", action.payload);
+				Cookies.set("tui:theme", action.payload, { expires: 365 })
 			}
 		},
 		setMode: (state, action: PayloadAction<"light" | "dark" | "auto">) => {
+			console.log(state.theme, action.payload)
 			state.themeValues = mapTheme(state.theme, action.payload)
 			state.mode = action.payload
-			localStorage.setItem("tui:mode", action.payload);
+			Cookies.set("tui:mode", action.payload, { expires: 365 })
 		}
 	},
 })

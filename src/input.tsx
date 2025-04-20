@@ -11,7 +11,7 @@ export type InputProps<T extends ElementType> = BoxProps<T> & {
 	size?: "small" | "large";
 }
 
-let Input = <T extends ElementType>(props: InputProps<T>) => {
+let Input = <T = "input">(props: InputProps<T>) => {
 
 	let {
 		as,

@@ -15,9 +15,6 @@ let Content = (props: PropsWithChildren<PopoverImpl.PopoverContentProps>) => {
 					}}
 				>
 					{props.children}
-					<PopoverImpl.Arrow
-						fill={"var(--background2)"}
-					/>
 				</Box>
 			</PopoverImpl.Content>
 		</PopoverImpl.Portal>

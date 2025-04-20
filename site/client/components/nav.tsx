@@ -1,7 +1,8 @@
 import { Book, GithubIcon, Lightbulb, MenuSquare, Search, SunMoon } from "lucide-react";
-import { Box, Button, Text, Popover, ToggleGroup, Select, Dialog } from "../../../src/mod"
+import { Box, Input, Button, Text, Popover, ToggleGroup, Select, Dialog, Tooltip } from "../../../src/mod"
 import { State } from "../lib/state";
 import Link from "./link";
+import { useState } from "react";
 
 export let Nav = () => {
 	return (
@@ -26,7 +27,7 @@ export let Nav = () => {
 					as={Link}
 					href="/"
 				>
-					<span>WebTUI React</span>
+					<span>WebTUI Docs</span>
 				</Box>
 				<Theme />
 			</Box>
@@ -42,49 +43,57 @@ export let Nav = () => {
 				}}
 			>
 				<Box as={"li"}>
-					<Box
-						as={Link}
-						href={"/docs"}
-						css={{
-							display: "flex",
-							alignItems: "center",
-							gap: "0.5ch",
-						}}
-					>
-						<Book size={"16px"} className="opacity-50" />
-						<span>Docs</span>
-					</Box>
+					<Tooltip content={"go to documentation"}>
+						<Box
+							as={Link}
+							href={"/docs"}
+							css={{
+								display: "flex",
+								alignItems: "center",
+								gap: "0.5ch",
+							}}
+						>
+							<Book size={"16px"} className="opacity-50" />
+							<span>Docs</span>
+						</Box>
+					</Tooltip>
 				</Box>
 				<Box as={"li"}>
-					<Box as={Link}
-						href={"/examples"}
-						css={{
-							display: "flex",
-							alignItems: "center",
-							gap: "0.5ch",
-						}}
-					>
-						<Lightbulb size={"16px"} className="opacity-50" />
-						<span>Examples</span>
-					</Box>
+					<Tooltip content={"link to examples"}>
+						<Box as={Link}
+							 href={"/examples"}
+							 css={{
+								 display: "flex",
+								 alignItems: "center",
+								 gap: "0.5ch",
+							 }}
+						>
+							<Lightbulb size={"16px"} className="opacity-50" />
+							<span>Examples</span>
+						</Box>
+					</Tooltip>
 				</Box>
 				<Box as={"li"}>
-					<Box
-						as={"a"}
-						href={"https://github.com"}
-						target={"_blank"}
-						css={{
-							display: "flex",
-							alignItems: "center",
-							gap: "0.5ch",
-						}}
-					>
-						<GithubIcon size={"16px"} className="opacity-50" />
-						<span>Github</span>
-					</Box>
+					<Tooltip content={"link to github repo"}>
+						<Box
+							as={"a"}
+							href={"https://github.com"}
+							target={"_blank"}
+							css={{
+								display: "flex",
+								alignItems: "center",
+								gap: "0.5ch",
+							}}
+						>
+							<GithubIcon size={"16px"} className="opacity-50" />
+							<span>Github</span>
+						</Box>
+					</Tooltip>
 				</Box>
 				<Box as={"li"}>
-					<SearchButton text/>
+					<Tooltip content={"search the documentation"}>
+						<SearchButton text/>
+					</Tooltip>
 				</Box>
 			</Box>
 			<Box
@@ -185,55 +194,84 @@ let Theme = () => {
 	let theme = State.useSelection(x => x.theme)
 	let { actions, dispatch } = State.useActions();
 	return (
-		<Popover.Root>
-			<Popover.Trigger asChild>
-				<Button border small className={"flex items-center justify-center"}>
-					<SunMoon size={"20px"} />
-				</Button>
-			</Popover.Trigger>
-			<Popover.Content>
-				<Box className={"flex flex-col space-y-2"}>
-					<Text>Mode</Text>
-					<ToggleGroup.Root
-						type={"single"}
-						value={theme.mode}
-						onValueChange={(m) => dispatch(actions.theme.setMode(
-							isEmpty(m) ? theme.mode : m
-						))}
-					>
-						<ToggleGroup.Item value={"auto"}>
-							Auto
-						</ToggleGroup.Item>
-						<ToggleGroup.Item value={"dark"}>
-							Dark
-						</ToggleGroup.Item>
-						<ToggleGroup.Item value={"light"}>
-							Light
-						</ToggleGroup.Item>
-					</ToggleGroup.Root>
-					<Text>Theme</Text>
-					<Select.Root
-						value={theme.theme}
-						onValueChange={(v) => dispatch(actions.theme.setTheme(v))}
-					>
-						<Select.Item value={"catppuccin"}>
-							Catppuccin
-						</Select.Item>
-						<Select.Item value={"nord"}>
-							Nord
-						</Select.Item>
-					</Select.Root>
-				</Box>
-			</Popover.Content>
-		</Popover.Root>
+			<Popover.Root>
+				<Tooltip content={"Theme settings"}>
+					<Popover.Trigger asChild>
+						<Button small className={"flex items-center justify-center"}>
+							<SunMoon size={"20px"} />
+						</Button>
+					</Popover.Trigger>
+				</Tooltip>
+				<Popover.Content>
+					<Box className={"flex flex-col space-y-2"}>
+						<Text>Mode</Text>
+						<ToggleGroup.Root
+							type={"single"}
+							value={theme.mode}
+							onValueChange={(m) => dispatch(actions.theme.setMode(
+								isEmpty(m) ? theme.mode : m
+							))}
+						>
+							<ToggleGroup.Item value={"auto"}>
+								Auto
+							</ToggleGroup.Item>
+							<ToggleGroup.Item value={"dark"}>
+								Dark
+							</ToggleGroup.Item>
+							<ToggleGroup.Item value={"light"}>
+								Light
+							</ToggleGroup.Item>
+						</ToggleGroup.Root>
+						<Text>Theme</Text>
+						<Select.Root
+							value={theme.theme}
+							onValueChange={(v) => dispatch(actions.theme.setTheme(v))}
+						>
+							<Select.Item value={"catppuccin"}>
+								Catppuccin
+							</Select.Item>
+							<Select.Item value={"nord"}>
+								Nord
+							</Select.Item>
+						</Select.Root>
+					</Box>
+				</Popover.Content>
+			</Popover.Root>
 	)
 }
 
-let SearchButton = (props: { text?: boolean }) => (
-	<Button
-		className="flex items-center space-x-1 h-[1.5lh]"
-	>
-		<Search size={"16px"} className="opacity-50" />
-		{props.text && <span>Search</span> }
-	</Button>
-)
+let SearchButton = (props: { text?: boolean }) => {
+
+	let [results, setResults] = useState([])
+
+	let empty = results.length < 1;
+
+	let onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		// do a search
+	}
+
+	return (
+		<Dialog.Root>
+			<Dialog.Trigger asChild>
+				<Button
+					{...props}
+					className="flex items-center space-x-1 h-[1.5lh]"
+				>
+					<Search size={"16px"} className="opacity-50" />
+					{props.text && <span>Search</span> }
+				</Button>
+			</Dialog.Trigger>
+			<Dialog.Content
+				title={"search docs"}
+				description={"search the documentation"}
+			>
+				<Input onChange={onSearchChange} border={"double"} placeholder={"enter a query"} />
+				<Box>
+					{empty && (
+						<Text>no results</Text>
+					)}
+				</Box>
+			</Dialog.Content>
+		</Dialog.Root>
+	)
+}

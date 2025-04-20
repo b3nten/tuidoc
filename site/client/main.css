@@ -68,3 +68,160 @@ a {
     }
 }
 
+/* Article Typography - Layout Only */
+
+/* Base typography container */
+.typography {
+    max-width: 65ch; /* Optimal reading width */
+    margin: 0 auto;  /* Center content */
+    line-height: 1.6;
+}
+
+/* Headings */
+.typography h1 {
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.typography h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.typography h3 {
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.typography h4, .typography h5, .typography h6 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Paragraphs */
+.typography p {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+}
+
+/* Lists */
+.typography ul, .typography ol {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+}
+
+.typography li {
+    margin-bottom: 0.5rem;
+}
+
+.typography li > ul, .typography li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Blockquotes */
+.typography blockquote {
+    margin: 1.5rem 0;
+    padding: 0.75rem 1.5rem;
+    border-left: 4px solid #e0e0e0;
+    font-style: italic;
+}
+
+/* Code blocks */
+.typography pre {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    overflow-x: auto;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+}
+
+.typography code {
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    background-color: #f5f5f5;
+}
+
+/* Inline elements */
+.typography strong, .typography b {
+    font-weight: 700;
+}
+
+.typography em, .typography i {
+    font-style: italic;
+}
+
+/* Links */
+.typography a {
+    text-decoration: underline;
+}
+
+.typography a:hover {
+    text-decoration: none;
+}
+
+/* Tables */
+.typography table {
+    width: 100%;
+    margin: 1.5rem 0;
+    border-collapse: collapse;
+}
+
+.typography th, .typography td {
+    padding: 0.75rem;
+    border: 1px solid #e0e0e0;
+}
+
+.typography th {
+    background-color: #f5f5f5;
+}
+
+/* Images */
+.typography img {
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+}
+
+/* Horizontal rule */
+.typography hr {
+    margin: 2rem 0;
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Definition lists */
+.typography dl {
+    margin: 1.5rem 0;
+}
+
+.typography dt {
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
+.typography dd {
+    margin-left: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Figure and figcaption */
+.typography figure {
+    margin: 1.5rem 0;
+}
+
+.typography figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.9em;
+    text-align: center;
+    color: #666;
+}
+
+/* Additional spacing for complex content */
+.typography * + h2,
+.typography * + h3,
+.typography * + h4 {
+    margin-top: 2rem;
+}
+
